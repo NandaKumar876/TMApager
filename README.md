@@ -1,16 +1,38 @@
-# React + Vite
+TMA Pager
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, real-time notification platform designed to streamline communication between academic institutions and students. TMA Pager ensures that important updates, announcements, and emergency alerts are delivered instantly and reliably.
 
-Currently, two official plugins are available:
+Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+TMA Pager is built to address communication gaps in academic environments where timely information is critical. The system enables institutions to broadcast updates efficiently while providing students with a clean and distraction-free interface to receive them.
 
-## React Compiler
+The application emphasizes performance, clarity, and reliability, making it suitable for both routine notifications and high-priority alerts.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Features
+Real-time notification delivery for academic updates and announcements
+Emergency alert system for urgent communication
+Targeted messaging for specific groups or batches
+Mobile-first, responsive user interface
+Clean and minimal design inspired by modern UI principles
+Secure and reliable communication pipeline
+Tech Stack
 
-## Expanding the ESLint configuration
+(Update this section based on your implementation)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Frontend: React / React Native / Next.js
+Backend: Node.js with Express
+Database: MongoDB / Firebase
+Realtime Communication: WebSockets / Firebase Realtime Database
+Deployment: Vercel / AWS / Render
+
+Project Structure
+TMApager/
+│── src/
+│   ├── components/
+│   ├── pages/
+│   ├── services/
+│   ├── utils/
+│
+│── public/
+│── package.json
+│── README.md
