@@ -17,7 +17,6 @@ Clean and minimal design inspired by modern UI principles
 Secure and reliable communication pipeline
 Tech Stack
 
-(Update this section based on your implementation)
 
 Frontend: React / React Native / Next.js
 Backend: Node.js with Express
