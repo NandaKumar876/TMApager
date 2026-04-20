@@ -2,7 +2,9 @@ TMA Pager
 
 A modern, real-time notification platform designed to streamline communication between academic institutions and students. TMA Pager ensures that important updates, announcements, and emergency alerts are delivered instantly and reliably.
 
+
 Overview
+
 
 TMA Pager is built to address communication gaps in academic environments where timely information is critical. The system enables institutions to broadcast updates efficiently while providing students with a clean and distraction-free interface to receive them.
 
