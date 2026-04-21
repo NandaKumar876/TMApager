@@ -1,7 +1,7 @@
+
 TMA Pager
 
 A modern, real-time notification platform designed to streamline communication between academic institutions and students. TMA Pager ensures that important updates, announcements, and emergency alerts are delivered instantly and reliably.
-
 
 Overview
 
@@ -27,6 +27,7 @@ Realtime Communication: WebSockets / Firebase Realtime Database
 Deployment: Vercel / AWS / Render
 
 Project Structure
+
 TMApager/
 │── src/
 │   ├── components/
