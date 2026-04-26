@@ -1,26 +1,59 @@
-# Pager TMA & WatchTower Backend
+# TMA Pager & WatchTower Backend
 
-This project combines the **Pager TMA** React/Vite monitoring dashboard with the **WatchTower** Python/FastAPI observability backend. WatchTower monitors endpoint health, parses backend logs, and ingests frontend errors, which are then displayed beautifully on the Pager TMA dashboard.
+A modern, real-time notification platform designed to streamline communication between academic institutions and students. TMA Pager ensures that important updates, announcements, and emergency alerts are delivered instantly and reliably.
 
-## Prerequisites
+## Overview
+
+TMA Pager is built to address communication gaps in academic environments where timely information is critical. The system enables institutions to broadcast updates efficiently while providing students with a clean and distraction-free interface to receive them.
+
+The application emphasizes performance, clarity, and reliability, making it suitable for both routine notifications and high-priority alerts.
+
+## Tech Stack
+
+Frontend: React / React Native / Next.js
+Backend: Python / FastAPI / Node.js
+Database: SQLite / PostgreSQL / MongoDB
+Realtime Communication: WebSockets / Firebase Realtime Database
+Deployment: Vercel / AWS / Render
+
+## Repository Structure
+
+```
+TMApager/
+│── backend/
+│   ├── watchtower/
+│   ├── start.bat
+│   └── requirements.txt
+│── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── api/
+│   │   └── utils/
+│   ├── public/
+│   ├── package.json
+│   └── vite.config.js
+│── package.json (root orchestration)
+└── README.md
+```
+
+## Local Development Workflow
+
+This project integrates the **Pager TMA** React/Vite frontend with the **WatchTower** Python/FastAPI observability backend. WatchTower monitors endpoint health, parses backend logs, and ingests frontend errors, which are then displayed beautifully on the Pager TMA dashboard.
+
+### Prerequisites
 - Node.js & npm
 - Python 3.9+ & pip
 
-## Getting Started
+### Getting Started
 
-1. **Install Frontend Dependencies:**
+1. **Install All Routing Dependencies:**
    ```bash
-   npm install
+   npm run install:all
    ```
 
-2. **Install Backend Dependencies:**
-   ```bash
-   cd backend
-   python -m pip install -r requirements.txt
-   ```
-
-3. **Environment Setup:**
-   The `backend/.env` file is already configured with your SMTP credentials, but you can adjust these if needed:
+2. **Environment Setup:**
+   The `backend/.env` file requires your SMTP credentials:
    
    | Variable | Description |
    |----------|-------------|
@@ -32,10 +65,10 @@ This project combines the **Pager TMA** React/Vite monitoring dashboard with the
    | `ALERT_EMAIL` | Comma-separated list of emails to receive alerts |
    | `WATCHTOWER_INGEST_KEY` | Secret key used by the JS SDK for frontend error ingest |
 
-4. **Monitoring Config:**
+3. **Monitoring Config:**
    Targets to monitor are configured in `backend/config.yaml`. By default, it monitors the React frontend and WatchTower's own health endpoint.
 
-## Running the Application
+### Running the Application
 
 This project uses `concurrently` to start both the Vite dev server and the Python FastAPI backend in a single command. 
 
@@ -47,12 +80,3 @@ npm run dev:full
 Alternatively, you can run them separately:
 - **Frontend only**: `npm run dev:frontend`
 - **Backend only**: `npm run dev:backend` (or run `backend\start.bat` on Windows)
-
-## Architecture
-
-- **Frontend**: React + Vite + Zustand store. Proxies `/api`, `/health`, `/ingest`, and `/sdk` to the backend.
-- **Backend**: FastAPI + SQLAlchemy + APScheduler. 
-   - `core/`: DB, config, schemas
-   - `api/`: JSON routes, html dashboard
-   - `workers/`: Background endpoint checker and log parser tasks
-   - `services/`: Alerts and deduplication
