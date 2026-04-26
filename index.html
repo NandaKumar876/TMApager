@@ -15,6 +15,19 @@
   </head>
   <body>
     <div id="root"></div>
+    <script src="/sdk/watchtower.js"></script>
+    <script>
+      if (typeof WatchTower !== 'undefined') {
+        WatchTower.init({
+          endpoint: '/ingest/frontend',
+          apiKey: 'wt_changeme_secret_key',
+          appId: 'pager-tma',
+          environment: 'development',
+          release: '1.0.0',
+          sampleRate: 1.0,
+        });
+      }
+    </script>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>

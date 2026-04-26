@@ -1,7 +1,8 @@
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Activity, Server, AlertTriangle, Bug, Globe,
-  ChevronRight, ArrowUpCircle, ArrowDownCircle, Zap, Cpu
+  ChevronRight, ArrowUpCircle, ArrowDownCircle, Zap, Cpu, Wifi, WifiOff
 } from 'lucide-react';
 import { useStore } from '../store';
 import './DashboardPage.css';
@@ -62,7 +63,17 @@ export default function DashboardPage() {
   const getFrontendErrorCount24h = useStore((s) => s.getFrontendErrorCount24h);
   const getAllSignals = useStore((s) => s.getAllSignals);
   const errorRates = useStore((s) => s.errorRates);
+  const loadAllData = useStore((s) => s.loadAllData);
+  const apiConnected = useStore((s) => s.apiConnected);
+  const isLoading = useStore((s) => s.isLoading);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    loadAllData();
+    // Refresh every 60 seconds
+    const interval = setInterval(loadAllData, 60000);
+    return () => clearInterval(interval);
+  }, [loadAllData]);
 
   const stats = getEndpointStats();
   const openIncidents = getOpenIncidents();

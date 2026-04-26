@@ -1,4 +1,14 @@
 import { create } from 'zustand';
+import {
+  fetchEndpoints as apiFetchEndpoints,
+  fetchIncidents as apiFetchIncidents,
+  fetchBackendErrors as apiFetchBackendErrors,
+  fetchFrontendErrors as apiFetchFrontendErrors,
+  fetchAlerts as apiFetchAlerts,
+  fetchSystemHealth as apiFetchSystemHealth,
+  fetchDashboard as apiFetchDashboard,
+  checkHealth as apiCheckHealth,
+} from './api/watchtowerApi';
 
 const generateId = () => Math.random().toString(36).substr(2, 9);
 
@@ -473,6 +483,10 @@ const errorRates = {
 };
 
 export const useStore = create((set, get) => ({
+  // ── API State ──
+  isLoading: false,
+  apiConnected: false,
+
   // ── Auth ──
   user: null,
   isAuthenticated: false,
@@ -622,4 +636,88 @@ export const useStore = create((set, get) => ({
     const next = current === 'light' ? 'dark' : 'light';
     get().updateSetting('theme', next);
   },
+
+  // ── Live API Loading Actions ──
+  checkApiHealth: async () => {
+    const result = await apiCheckHealth();
+    set({ apiConnected: !!result });
+    return !!result;
+  },
+
+  loadEndpoints: async () => {
+    set({ isLoading: true });
+    const data = await apiFetchEndpoints();
+    if (data && Array.isArray(data) && data.length > 0) {
+      set({ endpoints: data, apiConnected: true });
+    }
+    set({ isLoading: false });
+  },
+
+  loadIncidents: async () => {
+    set({ isLoading: true });
+    const data = await apiFetchIncidents();
+    if (data && Array.isArray(data) && data.length > 0) {
+      set({ incidents: data, apiConnected: true });
+    }
+    set({ isLoading: false });
+  },
+
+  loadBackendErrors: async () => {
+    const data = await apiFetchBackendErrors();
+    if (data && Array.isArray(data)) {
+      set({ backendErrors: data.length > 0 ? data : get().backendErrors, apiConnected: true });
+    }
+  },
+
+  loadFrontendErrors: async () => {
+    const data = await apiFetchFrontendErrors();
+    if (data && Array.isArray(data)) {
+      set({ frontendErrors: data.length > 0 ? data : get().frontendErrors, apiConnected: true });
+    }
+  },
+
+  loadAlertDeliveries: async () => {
+    const data = await apiFetchAlerts();
+    if (data && Array.isArray(data)) {
+      set({ alertDeliveries: data.length > 0 ? data : get().alertDeliveries, apiConnected: true });
+    }
+  },
+
+  loadSystemHealth: async () => {
+    const data = await apiFetchSystemHealth();
+    if (data) {
+      set({ systemHealth: { ...get().systemHealth, ...data }, apiConnected: true });
+    }
+  },
+
+  loadDashboard: async () => {
+    const data = await apiFetchDashboard();
+    if (data) {
+      set({ dashboardSummary: data, apiConnected: true });
+    }
+  },
+
+  // Load all data from the API at once
+  loadAllData: async () => {
+    set({ isLoading: true });
+    const health = await apiCheckHealth();
+    if (health) {
+      set({ apiConnected: true });
+      await Promise.all([
+        get().loadEndpoints(),
+        get().loadIncidents(),
+        get().loadBackendErrors(),
+        get().loadFrontendErrors(),
+        get().loadAlertDeliveries(),
+        get().loadSystemHealth(),
+        get().loadDashboard(),
+      ]);
+    } else {
+      set({ apiConnected: false });
+    }
+    set({ isLoading: false });
+  },
+
+  // Dashboard summary from API
+  dashboardSummary: null,
 }));
