@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/tma-logo.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="description" content="Pager TMA — Hybrid monitoring platform for Track My Academy" />
+    <meta name="theme-color" content="#0a0a1a" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <title>Pager TMA</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="/sdk/watchtower.js"></script>
+    <script>
+      if (typeof WatchTower !== 'undefined') {
+        WatchTower.init({
+          endpoint: '/ingest/frontend',
+          apiKey: 'wt_changeme_secret_key',
+          appId: 'pager-tma',
+          environment: 'development',
+          release: '1.0.0',
+          sampleRate: 1.0,
+        });
+      }
+    </script>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

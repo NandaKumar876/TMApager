@@ -1,40 +1,13 @@
 {
-  "name": "pager-tma",
+  "name": "pager-tma-root",
   "private": true,
-  "version": "0.0.0",
-  "type": "module",
   "scripts": {
-    "dev": "vite",
-    "dev:frontend": "vite",
+    "dev:frontend": "cd frontend && npm run dev",
     "dev:backend": "cd backend && python -m uvicorn watchtower.api.main:app --reload --host 0.0.0.0 --port 8000",
     "dev:full": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
-    "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "lucide-react": "^1.8.0",
-    "react": "^19.2.4",
-    "react-dom": "^19.2.4",
-    "react-router-dom": "^7.14.1",
-    "zustand": "^5.0.12"
+    "install:all": "npm install && cd frontend && npm install && cd ../backend && pip install -r requirements.txt"
   },
   "devDependencies": {
-    "@eslint/js": "^9.39.4",
-    "@types/react": "^19.2.14",
-    "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^4.7.0",
-    "concurrently": "^9.2.1",
-    "eslint": "^9.39.4",
-    "eslint-plugin-react-hooks": "^7.0.1",
-    "eslint-plugin-react-refresh": "^0.5.2",
-    "globals": "^17.4.0",
-    "rollup": "^4.x",
-    "vite": "^6.4.2"
-  },
-  "description": "This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.",
-  "main": "eslint.config.js",
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+    "concurrently": "^9.2.1"
+  }
 }
